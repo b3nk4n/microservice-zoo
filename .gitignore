@@ -1,0 +1,10 @@
+.idea
+
+**/build/*
+
+### Gradle ###
+.gradle
+buildSrc/build/
+generated/
+bin/
+out/

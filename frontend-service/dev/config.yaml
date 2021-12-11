@@ -1,0 +1,5 @@
+kafka:
+  bootstrapServer: localhost:9092
+  acks: all
+  retries: 0
+  lingerMs: 1

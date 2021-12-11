@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+}
+
+group 'de.benkan'
+version '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'de.benkan.frontend.FrontendApp'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':data-models')
+    implementation project(':shared-lib')
+
+    implementation 'com.google.inject:guice:5.0.1'
+    implementation 'io.dropwizard:dropwizard-core:2.0.25'
+    implementation 'io.projectreactor:reactor-core:3.4.12'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}

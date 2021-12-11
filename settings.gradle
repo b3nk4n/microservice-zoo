@@ -1,0 +1,5 @@
+rootProject.name = 'microservice-zoo'
+include 'data-models'
+include 'shared-lib'
+include 'frontend-service'
+

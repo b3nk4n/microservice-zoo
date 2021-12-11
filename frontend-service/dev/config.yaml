@@ -1,5 +1,6 @@
-kafka:
+kafkaProducer:
   bootstrapServer: localhost:9092
+  topic: messages
   acks: all
   retries: 0
   lingerMs: 1

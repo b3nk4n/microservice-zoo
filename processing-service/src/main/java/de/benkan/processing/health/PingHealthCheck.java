@@ -1,4 +1,4 @@
-package de.benkan.frontend.health;
+package de.benkan.processing.health;
 
 import com.codahale.metrics.health.HealthCheck;
 

@@ -9,7 +9,6 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
 public class FrontendApp extends Application<FrontendConfig> {
-
     @Override
     public String getName() {
         return "frontend-service";

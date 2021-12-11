@@ -1,0 +1,8 @@
+kafkaConsumer:
+  bootstrapServer: localhost:9092
+  topic: messages
+  groupId: processing-service
+  pollTimeoutMs: 100
+
+logging:
+  level: DEBUG

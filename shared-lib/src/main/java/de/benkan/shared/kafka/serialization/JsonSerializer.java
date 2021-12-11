@@ -23,5 +23,4 @@ public class JsonSerializer<T> implements Serializer<T> {
             throw new SerializationException("Error serializing JSON data", e);
         }
     }
-
 }

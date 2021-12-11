@@ -1,12 +1,13 @@
 package de.benkan.frontend.stream;
 
 import de.benkan.data.models.Message;
-import de.benkan.shared.kafka.KafkaWriter;
-import de.benkan.shared.kafka.Topics;
+import de.benkan.shared.kafka.producer.KafkaWriter;
 import io.dropwizard.lifecycle.Managed;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class MessageStream implements Managed {
 
     private final MessageDownstream messageDownstream;
@@ -21,11 +22,7 @@ public class MessageStream implements Managed {
     @Override
     public void start() {
         messageDownstream.getFlux()
-                .subscribe(message ->
-                        kafkaWriter.send(
-                                Topics.INGRESS_MESSAGES,
-                                message.channel(),
-                                message));
+                .subscribe(message -> kafkaWriter.write(message.channel(), message));
     }
 
     @Override

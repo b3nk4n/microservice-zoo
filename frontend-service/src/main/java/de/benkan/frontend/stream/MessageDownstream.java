@@ -4,13 +4,16 @@ import de.benkan.data.models.Message;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class MessageDownstream {
     private final Sinks.Many<Message> messagesSink;
 
     public MessageDownstream() {
-        this.messagesSink = Sinks.many()
-                .multicast()
-                .directBestEffort();
+        messagesSink = Sinks.many()
+                .unicast()
+                .onBackpressureBuffer();
     }
 
     public boolean emit(Message message) {

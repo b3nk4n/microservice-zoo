@@ -1,5 +1,5 @@
 kafkaProducer:
-  bootstrapServer: kafka-service:19092
+  bootstrapServer: localhost:29092
   topic: messages
   acks: all
   retries: 0

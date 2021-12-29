@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.benkan.frontend.health.PingHealthCheck;
 import de.benkan.frontend.resources.MessageResource;
+import de.benkan.frontend.resources.SettingsResource;
 import de.benkan.frontend.stream.MessageStream;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
@@ -25,6 +26,7 @@ public class FrontendApp extends Application<FrontendConfig> {
 
     private void registerResources(Environment environment, Injector injector) {
         environment.jersey().register(injector.getInstance(MessageResource.class));
+        environment.jersey().register(injector.getInstance(SettingsResource.class));
     }
 
     private void registerServices(Environment environment, Injector injector) {

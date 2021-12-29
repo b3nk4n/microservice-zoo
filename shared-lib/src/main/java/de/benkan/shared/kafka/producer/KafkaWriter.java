@@ -1,16 +1,19 @@
 package de.benkan.shared.kafka.producer;
 
 import de.benkan.shared.kafka.serialization.JsonSerializer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Properties;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class KafkaWriter<V> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaWriter.class);
+
     private final Producer<String, V> producer;
     private final KafkaProducerConfig config;
 
@@ -21,7 +24,18 @@ public class KafkaWriter<V> {
     }
 
     public void write(String key, V value) {
-        producer.send(new ProducerRecord<>(config.topic(), key, value));
+        Future<RecordMetadata> sendFuture = producer.send(new ProducerRecord<>(config.topic(), key, value));
+
+        try {
+            RecordMetadata metadata = sendFuture.get(1, TimeUnit.SECONDS);
+            LOGGER.info("Message sent {} to {}", value, metadata);
+        } catch (InterruptedException e) {
+            LOGGER.warn("Send feature got interrupted");
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            LOGGER.error("Could not write message", e);
+        }
     }
 
     public void close() {

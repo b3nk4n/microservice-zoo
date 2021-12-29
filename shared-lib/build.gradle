@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'de.benkan'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 java {
     toolchain {
@@ -20,7 +20,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
     implementation 'com.google.inject:guice:5.0.1'
-    implementation 'io.projectreactor:reactor-core:3.4.12'
+    implementation 'io.projectreactor:reactor-core:3.4.13'
     implementation 'jakarta.validation:jakarta.validation-api:3.0.1'
     implementation 'org.apache.kafka:kafka-clients:2.8.0'
 

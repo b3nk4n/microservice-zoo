@@ -5,13 +5,16 @@ metadata:
   labels:
     infra: kafka
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 9092
       name: kafka-internal-port
       protocol: TCP
     - port: 19092
       name: kafka-public-port
+      protocol: TCP
+    - port: 29092
+      name: kafka-public-local-port
       protocol: TCP
   selector:
     infra: kafka

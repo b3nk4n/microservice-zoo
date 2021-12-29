@@ -4,7 +4,9 @@ import de.benkan.data.models.Message;
 import de.benkan.frontend.stream.MessageDownstream;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class MessageServiceImpl implements MessageService {
     private final MessageDownstream messageDownstream;
 

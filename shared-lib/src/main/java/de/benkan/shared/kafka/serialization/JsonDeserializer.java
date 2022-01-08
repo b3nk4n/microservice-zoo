@@ -1,17 +1,18 @@
 package de.benkan.shared.kafka.serialization;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.io.IOException;
 
-public class JsonDeserializer<T> implements Deserializer<T> {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public abstract class JsonDeserializer<T> implements Deserializer<T> {
+    private final ObjectReader objectReader;
 
-    public JsonDeserializer() {
-        // needed by Kafka
+    protected JsonDeserializer(Class<T> clazz) {
+        objectReader = new ObjectMapper()
+                .readerFor(clazz);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class JsonDeserializer<T> implements Deserializer<T> {
         }
 
         try {
-            return objectMapper.readValue(data, new TypeReference<>() { });
+            return objectReader.readValue(data);
         } catch (IOException e) {
             throw new SerializationException("Error deserializing binary data");
         }

@@ -15,6 +15,21 @@ java {
     }
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'de.benkan.processing.ProcessingApp',
+        )
+    }
+
+    // include all dependencies as a fat jar
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 repositories {
     mavenCentral()
 }
@@ -27,6 +42,7 @@ dependencies {
     implementation 'io.dropwizard:dropwizard-core:2.0.25'
     implementation 'io.projectreactor:reactor-core:3.4.13'
     implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.apache.kafka:kafka-clients:2.8.0' // TODO why is this dependency not transitively present via :shared-lib?
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'

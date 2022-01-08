@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: processing
+  labels:
+    app: processing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: processing
+  template:
+    metadata:
+      labels:
+        app: processing
+    spec:
+      containers:
+        - name: processing-service
+          image: processing-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8901
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: processing-service
+  labels:
+    app: processing
+spec:
+  type: NodePort
+  ports:
+    - port: 8901
+      name: processing-port
+  selector:
+    app: processing

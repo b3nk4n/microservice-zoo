@@ -6,6 +6,8 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 public record KafkaProducerConfig(@NotBlank @JsonProperty("bootstrapServer") String bootstrapServer,
                                   @NotBlank @JsonProperty("topic") String topic,
+                                  @NotBlank @JsonProperty("keySerializer") String keySerializer,
+                                  @NotBlank @JsonProperty("valueSerializer") String valueSerializer,
                                   @NotBlank @JsonProperty("acks") String acks,
                                   @PositiveOrZero @JsonProperty("retries") int retries,
                                   @PositiveOrZero @JsonProperty("lingerMs") long lingerMs) { }

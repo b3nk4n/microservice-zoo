@@ -1,13 +1,11 @@
 package de.benkan.shared.kafka.consumer;
 
 import com.google.common.collect.Streams;
-import de.benkan.shared.kafka.serialization.JsonDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,8 +62,8 @@ public class KafkaReader<V> implements ConsumerRebalanceListener, Closeable {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServer());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, config.groupId());
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, config.keyDeserializer());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, config.valueDeserializer());
         KafkaConsumer<String, V> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Set.of(config.topic()), this);
         return consumer;

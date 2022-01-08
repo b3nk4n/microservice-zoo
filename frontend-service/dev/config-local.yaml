@@ -1,6 +1,11 @@
 kafkaProducer:
   bootstrapServer: localhost:29092
   topic: messages
+  keySerializer: org.apache.kafka.common.serialization.StringSerializer
+  valueSerializer: de.benkan.frontend.stream.serialization.MessageSerializer
   acks: all
   retries: 0
   lingerMs: 1
+
+logging:
+  level: DEBUG

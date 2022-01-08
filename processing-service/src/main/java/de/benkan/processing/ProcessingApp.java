@@ -3,7 +3,7 @@ package de.benkan.processing;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.benkan.processing.health.PingHealthCheck;
-import de.benkan.processing.services.MessageProcessingStream;
+import de.benkan.processing.stream.MessageProcessingStream;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 

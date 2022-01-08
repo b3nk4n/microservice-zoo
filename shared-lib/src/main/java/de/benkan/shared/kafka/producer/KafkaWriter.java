@@ -1,8 +1,6 @@
 package de.benkan.shared.kafka.producer;
 
-import de.benkan.shared.kafka.serialization.JsonSerializer;
 import org.apache.kafka.clients.producer.*;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +46,8 @@ public class KafkaWriter<V> {
         props.put(ProducerConfig.ACKS_CONFIG, config.acks());
         props.put(ProducerConfig.RETRIES_CONFIG, config.retries());
         props.put(ProducerConfig.LINGER_MS_CONFIG, config.lingerMs());
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, config.keySerializer());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, config.valueSerializer());
         return new KafkaProducer<>(props);
     }
 }

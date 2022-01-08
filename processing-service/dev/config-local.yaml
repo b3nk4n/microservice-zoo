@@ -1,10 +1,10 @@
 kafkaConsumer:
-  bootstrapServer: kafka-service:19092
+  bootstrapServer: localhost:29092
   topic: messages
-  groupId: processing-service
+  groupId: local-processing-service
   keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
   valueDeserializer: de.benkan.processing.stream.serialization.MessageDeserializer
   pollTimeoutMs: 100
 
 logging:
-  level: INFO
+  level: DEBUG

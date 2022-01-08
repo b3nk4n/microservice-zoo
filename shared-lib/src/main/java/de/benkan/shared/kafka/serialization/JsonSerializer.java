@@ -1,14 +1,15 @@
 package de.benkan.shared.kafka.serialization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
 
-public class JsonSerializer<T> implements Serializer<T> {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public abstract class JsonSerializer<T> implements Serializer<T> {
+    private final ObjectWriter objectWriter;
 
-    public JsonSerializer() {
-        // needed by Kafka
+    protected JsonSerializer(Class<T> clazz) {
+       objectWriter = new ObjectMapper().writerFor(clazz);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class JsonSerializer<T> implements Serializer<T> {
         }
 
         try {
-            return objectMapper.writeValueAsBytes(data);
+            return objectWriter.writeValueAsBytes(data);
         } catch (Exception e) {
             throw new SerializationException("Error serializing JSON data", e);
         }

@@ -1,6 +1,6 @@
 rootProject.name = 'microservice-zoo'
 include 'data-models'
-include 'shared-lib'
+include 'shared-kafka'
 include 'frontend-service'
 include 'processing-service'
 

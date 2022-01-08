@@ -16,6 +16,7 @@ java {
 }
 
 jar {
+    dependsOn(':data-models:jar', ':shared-lib:jar')
     manifest {
         attributes(
                 'Main-Class': 'de.benkan.frontend.FrontendApp',

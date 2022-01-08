@@ -21,7 +21,6 @@ public class ReactiveKafkaReader<V> implements Closeable {
         Scheduler scheduler = Schedulers.newSingle(String.join(".", kafkaReader.getTopic(), "subscriber"));
         flux = Flux.create(sink ->
                 sink.onRequest(requested ->
-                        // TODO: is this onRequest only ever called once?
                         disposables.add(
                                 scheduler.schedule(() -> {
                                     try {

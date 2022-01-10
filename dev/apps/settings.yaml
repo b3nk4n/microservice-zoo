@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settings
+  labels:
+    app: settings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settings
+  template:
+    metadata:
+      labels:
+        app: settings
+    spec:
+      containers:
+        - name: settings-service
+          image: settings-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8911
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: settings-service
+  labels:
+    app: settings
+spec:
+  type: NodePort
+  ports:
+    - port: 8911
+      name: settings-port
+  selector:
+    app: settings

@@ -3,4 +3,5 @@ include 'data-models'
 include 'shared-kafka'
 include 'frontend-service'
 include 'processing-service'
+include 'settings-service'
 

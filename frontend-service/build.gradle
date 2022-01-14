@@ -16,7 +16,7 @@ java {
 }
 
 jar {
-    dependsOn(':data-models:jar', ':shared-kafka:jar')
+    dependsOn(':data-models:jar', ':shared-kafka:jar', ':settings-client:jar')
     manifest {
         attributes(
                 'Main-Class': 'de.benkan.frontend.FrontendApp',
@@ -38,6 +38,7 @@ repositories {
 dependencies {
     implementation project(':data-models')
     implementation project(':shared-kafka')
+    implementation project(':settings-client')
 
     implementation 'com.google.inject:guice:5.0.1'
     implementation 'io.dropwizard:dropwizard-core:2.0.25'

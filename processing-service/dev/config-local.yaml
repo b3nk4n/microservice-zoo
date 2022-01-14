@@ -1,3 +1,6 @@
+logging:
+  level: INFO
+
 kafkaConsumer:
   bootstrapServer: localhost:29092
   topic: messages
@@ -5,6 +8,3 @@ kafkaConsumer:
   keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
   valueDeserializer: de.benkan.processing.stream.serialization.MessageDeserializer
   pollTimeoutMs: 100
-
-logging:
-  level: DEBUG

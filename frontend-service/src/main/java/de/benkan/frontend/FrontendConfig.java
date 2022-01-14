@@ -1,6 +1,7 @@
 package de.benkan.frontend;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.benkan.settings.client.SettingsClientConfig;
 import de.benkan.shared.kafka.producer.KafkaProducerConfig;
 import io.dropwizard.Configuration;
 
@@ -12,11 +13,21 @@ public class FrontendConfig extends Configuration {
     @Valid
     private final KafkaProducerConfig kafkaProducerConfig;
 
-    public FrontendConfig(@JsonProperty("kafkaProducer") KafkaProducerConfig kafkaProducerConfig) {
+    @NotNull
+    @Valid
+    private final SettingsClientConfig settingsClientConfig;
+
+    public FrontendConfig(@JsonProperty("kafkaProducer") KafkaProducerConfig kafkaProducerConfig,
+                          @JsonProperty("settingsClientConfig") SettingsClientConfig settingsClientConfig) {
         this.kafkaProducerConfig = kafkaProducerConfig;
+        this.settingsClientConfig = settingsClientConfig;
     }
 
     public KafkaProducerConfig getKafkaProducerConfig() {
         return kafkaProducerConfig;
+    }
+
+    public SettingsClientConfig getSettingsClientConfig() {
+        return settingsClientConfig;
     }
 }

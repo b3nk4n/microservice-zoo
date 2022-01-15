@@ -21,15 +21,8 @@ public class UiSettingsEntity {
         this.darkMode = darkMode;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public boolean isDarkMode() {
         return darkMode;
     }
 
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
-    }
 }

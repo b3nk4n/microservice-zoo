@@ -6,11 +6,16 @@ plugins {
 
 group 'de.benkan'
 version '1.0.0'
-sourceCompatibility = '17'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 

@@ -1,10 +1,9 @@
 package de.benkan.settings.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.benkan.data.models.settings.UiSettings;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -31,6 +30,32 @@ public class SettingsClient {
         Request request = new Request.Builder()
                 .url(baseUrl + "/settings")
                 .get()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                return Optional.of(objectMapper.readValue(response.body().byteStream(), UiSettings.class));
+            }
+            return Optional.empty();
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<UiSettings> postSettingsSync(UiSettings data) {
+        String json;
+        try {
+            json = objectMapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            return Optional.empty();
+        }
+
+        RequestBody body = RequestBody.create(
+                json, MediaType.parse(javax.ws.rs.core.MediaType.APPLICATION_JSON));
+
+        Request request = new Request.Builder()
+                .url(baseUrl + "/settings")
+                .post(body)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {

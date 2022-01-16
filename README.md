@@ -103,9 +103,19 @@ but instead use the locally built containers instead. This is why we use a pull 
 
 The following command needs to be run **before** containers are build via `docker build`:
 ```bash
-eval $(minikube docker-env)
+$ eval $(minikube docker-env)
 ```
 After running the above command, both `minikube image ls` and `docker images` should list the same set of images.
+
+Alternatively, you can also run a local registry via the following command:
+```bash
+$ docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
+And then push a container to the registry.
+```bash
+$ docker push localhost:5000/image-name
+```
+Consequently, the image can be referenced from this local registry via `localhost:5000/image-name`.
 
 ### How to connect to the Kafka cluster running within Kubernetes using a local kafka producer?
 
